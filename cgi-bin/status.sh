@@ -7,7 +7,6 @@ printf "Content-type: text/plain \n\n"
 if [ ! -f /sys/class/gpio/gpio4/value ]
 then
     echo "4" > /sys/class/gpio/export
-    echo "out" > /sys/class/gpio/gpio4/direction
 fi
 
 # status of pin

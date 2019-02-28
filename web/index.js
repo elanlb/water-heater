@@ -4,9 +4,13 @@ function getStatus () {
         var responseCharacter = this.responseText.charAt(0);
         if (responseCharacter == "0") {
             document.getElementById("status").textContent = "OFF";
+            document.getElementById("activate").disabled = false;
+            document.getElementById("deactivate").disabled = true;
         }
         else if (responseCharacter == "1") {
             document.getElementById("status").textContent = "ON";
+            document.getElementById("activate").disabled = true;
+            document.getElementById("deactivate").disabled = false;
         }
         else {
             document.getElementById("status").textContent = "ERROR";
@@ -20,19 +24,21 @@ function getStatus () {
 }
 
 function activate () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/cgi-bin/activate.sh");
-    xhr.send();
-
-    getStatus();
+    if (!this.disabled) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/cgi-bin/activate.sh");
+        xhr.send();
+        getStatus();
+    }
 }
 
 function deactivate () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/cgi-bin/deactivate.sh");
-    xhr.send();
-
-    getStatus();
+    if (!this.disabled) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/cgi-bin/deactivate.sh");
+        xhr.send();
+        getStatus();
+    }
 }
 
 window.onload = function () {
